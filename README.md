@@ -2,9 +2,9 @@
 
 **Participantes do projeto:**
 
-- Gleison Oliveira
-- Kayky Rodrigues
-- Vinycius Huelisson
+- [Gleison Oliveira](https://github.com/sh1ftx)
+- [Kayky Rodrigues](https://github.com/sh1ftx)
+- [Vinycius Huellyson](https://github.com/sh1ftx)
 
 ---
 
