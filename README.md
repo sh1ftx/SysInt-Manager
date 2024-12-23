@@ -4,6 +4,8 @@
 
 - [Gleison Oliveira](https://github.com/gleiSUN)
 - [Kayky Rodrigues](https://github.com/xFrostzss)
+- [Fernado Sena](https://github.com/xFrostzss)
+- [João Henrique](https://github.com/xFrostzss)
 - [Vinycius Huellyson](https://github.com/sh1ftx)
 
 ---
