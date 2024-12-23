@@ -1,5 +1,11 @@
 **Simulador de Interrupções com Prioridades e Timer**  
 
+**Participantes do projeto:**
+
+- Gleison Oliveira
+- Kayky Rodrigues
+- Vinycius Huelisson
+
 ---
 
 ## **Índice**  
