@@ -1,4 +1,4 @@
-**Simulador de Interrupções com Prioridades e Timer**  
+## Simulador de Interrupções com Prioridades e Timer
 
 **Participantes do projeto:**
 
@@ -6,7 +6,7 @@
 - [Kayky Rodrigues](https://github.com/xFrostzss)
 - [Fernado Sena](https://github.com/FernandosenaDev)
 - [João Henrique](https://github.com/xFrostzss)
-- [Vinycius Huellyson](https://github.com/sh1ftx)
+- [Vinycius Huellyson](https://github.com/VINYCIU51)
 
 ---
 
