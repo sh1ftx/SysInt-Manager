@@ -45,9 +45,6 @@ O objetivo principal deste projeto é simular e gerenciar interrupções em um s
 
 ## **3. Visão Geral do Sistema**  
 
-![image](https://github.com/user-attachments/assets/ac8515d8-a1cc-4f6f-b59b-91bf5860f1c1)
-
-
 O sistema simula interrupções de diferentes tipos (erro de sistema, entrada/saída, temporizador) e os trata de acordo com a sua prioridade. O programa é dividido em várias classes e módulos que gerenciam a geração e o despacho dessas interrupções.
 
 ### **Componentes Principais:**
