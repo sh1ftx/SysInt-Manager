@@ -4,7 +4,7 @@
 
 - [Gleison Oliveira](https://github.com/gleiSUN)
 - [Kayky Rodrigues](https://github.com/xFrostzss)
-- [Fernado Sena](https://github.com/FernandosenaDev)
+- [Fernando Sena](https://github.com/FernandosenaDev)
 - [João Henrique](https://github.com/xFrostzss)
 - [Vinycius Huellyson](https://github.com/VINYCIU51)
 
@@ -16,10 +16,9 @@
 2. [Objetivo do Projeto](#2-objetivo-do-projeto)  
 3. [Visão Geral do Sistema](#3-visão-geral-do-sistema)  
 4. [Estrutura do Código](#4-estrutura-do-código)  
-    4.1 [Arquivo: `term_colors.py`](#41-arquivo-term_colorspy)  
-    4.2 [Arquivo: `legend.py`](#42-arquivo-legendpy)  
-    4.3 [Arquivo: `subprocess_manager.py`](#43-arquivo-subprocess_managerpy)  
-    4.4 [Arquivo: `main.py`](#44-arquivo-mainpy)  
+    4.1 [Arquivo: `interrupt_manager.py`](#41-arquivo-interrupt_managerpy)  
+    4.2 [Arquivo: `logging_manager.py`](#42-arquivo-logging_managerpy)  
+    4.3 [Arquivo: `main.py`](#43-arquivo-mainpy)  
 5. [Execução do Programa](#5-execução-do-programa)  
 6. [Saída e Explicação dos Resultados](#6-saída-e-explicação-dos-resultados)  
 7. [Conclusão](#7-conclusão)  
@@ -27,154 +26,108 @@
 ---
 
 ## **1. Introdução**  
-Este projeto é um **simulador de interrupções** desenvolvido em **Python**. Ele replica o funcionamento de um sistema operacional ao gerenciar eventos com base em prioridades, simulando interrupções. Cada evento (subprocesso) é identificado por uma **cor** específica, possui um **timer** para indicar o momento de execução e exibe informações detalhadas do início ao término da tarefa.  
+Este projeto é um **simulador de interrupções** desenvolvido em **Python**, visando simular e gerenciar eventos em um sistema operacional. O sistema é projetado para gerenciar interrupções com base em prioridades e tem um **timer** para indicar o momento de execução de cada interrupção. A simulação foi implementada de forma modular, utilizando classes específicas para gerar, tratar e registrar as interrupções.  
 
 ---
 
 ## **2. Objetivo do Projeto**  
-- Proporcionar uma compreensão prática sobre interrupções em sistemas operacionais.  
-- Demonstrar gerenciamento de eventos com prioridades em um ambiente controlado.  
-- Oferecer uma saída no terminal organizada, informativa e fácil de interpretar com uso de cores e timers.  
+- **Simular interrupções de sistemas operacionais** com diferentes tipos e prioridades.  
+- **Gerenciar eventos com base em prioridades** para simular um sistema real de interrupções.  
+- **Oferecer uma saída clara e informativa no terminal**, com cores e timers para fácil interpretação dos resultados.  
+- **Registrar eventos e status** de cada interrupção para fins de monitoramento e depuração.
 
 ---
 
 ## **3. Visão Geral do Sistema**  
-O programa é dividido em **subprocessos** que realizam tarefas específicas, simulando interrupções de diferentes tipos.  
+O programa consiste em vários componentes que trabalham em conjunto para gerar, tratar e registrar interrupções. A simulação é feita por meio de subprocessos que geram interrupções de diferentes tipos, com prioridade e tempos simulados.  
 
-**Características principais:**  
-1. **Timer**: Marca o momento exato em que cada subprocesso inicia e termina.  
-2. **Cores**: Diferenciam os subprocessos no terminal para facilitar a leitura.  
-3. **Legenda**: Explica as cores utilizadas e suas respectivas funções.  
-4. **Execução Controlada**: Os subprocessos são gerenciados sequencialmente com tempo simulado de execução.  
-
----
-
-## **4. Estrutura do Código**  
-
-O projeto está organizado em quatro arquivos principais:  
-
-### **4.1 Arquivo: `term_colors.py`**  
-**Função**: Define as **cores ANSI** para estilizar a saída no terminal.  
-
-```python
-class TermColors:
-    BLUE = "\033[94m"      # Processo Principal
-    RED = "\033[91m"       # Subprocesso 1
-    GREEN = "\033[92m"     # Subprocesso 2
-    YELLOW = "\033[93m"    # Subprocesso 3
-    MAGENTA = "\033[95m"   # Subprocesso 4
-    CYAN = "\033[96m"      # Subprocesso 5
-    ORANGE = "\033[38;5;214m"  # Subprocesso 6
-    RESET = "\033[0m"      # Reset para cor padrão
-```
+**Características principais do sistema:**
+1. **Interrupções com Prioridade**: As interrupções possuem diferentes níveis de prioridade e são tratadas de acordo com essas prioridades.
+2. **Timer**: Cada interrupção possui um timer para indicar o momento de início e término da execução.
+3. **Cores**: O terminal exibe interrupções com cores específicas, facilitando a visualização e entendimento do status de cada interrupção.
+4. **Registro de Eventos**: Todos os eventos são registrados com timestamps e mensagens específicas, facilitando o acompanhamento do comportamento do sistema.
+5. **Módulos Independentes**: O código é modularizado em classes e arquivos, com cada parte do sistema responsável por uma tarefa específica, o que facilita manutenção e expansão.
 
 ---
 
-### **4.2 Arquivo: `legend.py`**  
-**Função**: Exibe a legenda no terminal, associando cada **cor** ao subprocesso e explicando sua função.  
+## **4. Estrutura do Código**
 
-```python
-from term_colors import TermColors
+O código foi dividido em múltiplos arquivos, cada um responsável por uma funcionalidade específica. Abaixo está uma descrição de cada módulo:
 
-def printLegend():
-    print(f"{TermColors.BLUE}Processo Principal:{TermColors.RESET} Gerencia os subprocessos.")
-    print(f"{TermColors.RED}Subprocesso 1:{TermColors.RESET} Gera interrupção tipo 1.")
-    print(f"{TermColors.GREEN}Subprocesso 2:{TermColors.RESET} Gera interrupção tipo 2.")
-    print(f"{TermColors.YELLOW}Subprocesso 3:{TermColors.RESET} Temporizador (Timer).")
-    print(f"{TermColors.MAGENTA}Subprocesso 4:{TermColors.RESET} Simula evento de entrada/saída.")
-    print(f"{TermColors.CYAN}Subprocesso 5:{TermColors.RESET} Simula erro de sistema.")
-    print(f"{TermColors.ORANGE}Subprocesso 6:{TermColors.RESET} Prioridade mais baixa.\n")
-```
+### **4.1 Arquivo: `interrupt_manager.py`**
 
----
+Este arquivo contém a classe **`InterruptManager`**, responsável por gerenciar a criação, armazenamento e despacho de interrupções. Ele define os tipos de interrupção e suas prioridades, bem como o gerenciamento de múltiplas interrupções simultâneas.
 
-### **4.3 Arquivo: `subprocess_manager.py`**  
-**Função**: Gerencia a criação e execução dos **subprocessos**, exibindo informações detalhadas e registrando os horários.  
+**Funções principais**:
+- Gerenciamento das interrupções geradas.
+- Implementação da fila de interrupções e lógica de despacho conforme a prioridade.
 
-```python
-import os, time, multiprocessing
-from datetime import datetime
-from term_colors import TermColors
+### **4.2 Arquivo: `logging_manager.py`**
 
-def subProcessTask(number, color, task_name):
-    pid = os.getpid()
-    start_time = datetime.now().strftime("%H:%M:%S")
-    print(f"{color}[{task_name}] Início: {start_time} | PID: {pid}{TermColors.RESET}")
-    time.sleep(3)  # Simula execução
-    end_time = datetime.now().strftime("%H:%M:%S")
-    print(f"{color}[{task_name}] Fim: {end_time} | PID: {pid}{TermColors.RESET}\n")
+Contém a classe **`LoggingManager`**, responsável pela geração e formatação dos logs de execução. Este módulo garante que cada evento importante, como a geração e o tratamento das interrupções, seja registrado adequadamente.
 
-def manageSubProcesses():
-    tasks = [
-        ("Subprocesso 1", TermColors.RED),
-        ("Subprocesso 2", TermColors.GREEN),
-        ("Subprocesso 3", TermColors.YELLOW),
-        ("Subprocesso 4", TermColors.MAGENTA),
-        ("Subprocesso 5", TermColors.CYAN),
-        ("Subprocesso 6", TermColors.ORANGE)
-    ]
-    for task_name, color in tasks:
-        process = multiprocessing.Process(target=subProcessTask, args=(1, color, task_name))
-        process.start()
-        process.join()
-```
+**Funções principais**:
+- Gerenciamento do registro de logs.
+- Exibição de logs com timestamps e categorias de interrupção.
+
+### **4.3 Arquivo: `main.py`**
+
+Este é o arquivo principal que inicia a execução do programa. Ele coordena os outros módulos e simula a geração e o despacho de interrupções.
+
+**Funções principais**:
+- Inicialização do sistema de interrupções.
+- Geração das interrupções em um ciclo contínuo.
+- Inicia o processo de despacho de interrupções conforme a prioridade.
 
 ---
 
-### **4.4 Arquivo: `main.py`**  
-**Função**: Arquivo principal que orquestra a execução do programa.  
+## **5. Execução do Programa**
 
-```python
-from legend import printLegend
-from subprocess_manager import manageSubProcesses
-
-def main():
-    print("\n### Simulador de Interrupções com Timer ###\n")
-    printLegend()
-    manageSubProcesses()
-    print("\n### Fim da Execução ###\n")
-
-if __name__ == "__main__":
-    main()
-```
-
----
-
-## **5. Execução do Programa**  
-1. Garanta que o **Python 3.x** esteja instalado.  
-2. Execute o arquivo principal:  
+### **Passo a Passo para Executar**:
+1. Clone o repositório:
    ```bash
-   python main.py
-   ```  
+   git clone https://github.com/sh1ftx/SysInt-Manager.git
+   ```
+2. Acesse a pasta do projeto:
+   ```bash
+   cd SysInt-Manager
+   ```
+3. Execute o programa:
+   ```bash
+   python3 src/main.py
+   ```
+
+### **Requisitos**:
+- Python 3.x
+- Nenhuma dependência externa é necessária. O código utiliza apenas bibliotecas padrão do Python.
 
 ---
 
-## **6. Saída e Explicação dos Resultados**  
+## **6. Saída e Explicação dos Resultados**
 
-### **Saída Esperada:**  
-- A legenda é exibida no início, associando cada cor a um subprocesso.  
-- Cada subprocesso imprime:  
-   - **Horário de início**  
-   - **PID**  
-   - **Horário de término**  
-- As cores no terminal facilitam a identificação das etapas.  
-
-### **Exemplo Simplificado:**  
+A execução do programa simula a geração e o tratamento de interrupções com base nas prioridades. Abaixo segue um exemplo de saída esperada:
 
 ```
-Processo Principal: Gerencia os subprocessos.
-Subprocesso 1: Gera interrupção tipo 1.  
-...
-
-[Subprocesso 1] Início: 10:30:00 | PID: 12345  
-[Subprocesso 1] Fim: 10:30:03 | PID: 12345  
-
-[Subprocesso 2] Início: 10:30:04 | PID: 12346  
-[Subprocesso 2] Fim: 10:30:07 | PID: 12346  
-...
+13:23:22 - [GERADOR] Interrupção gerada: SYSTEM_ERROR (Prioridade 1)
+13:23:23 - [GERADOR] Interrupção gerada: IO (Prioridade 2)
+13:23:24 - [DESPACHANTE] Iniciando o despacho das interrupções...
+13:23:24 - [DESPACHANTE] Tratando: SYSTEM_ERROR (Prioridade 1)
+13:23:25 - [DESPACHANTE] Tratando: IO (Prioridade 2)
 ```
+
+**Explicação**:
+- As interrupções são geradas com diferentes tipos e prioridades.
+- O gerador de interrupções simula a criação dessas interrupções.
+- O despachante trata as interrupções de acordo com sua prioridade.
 
 ---
 
-## **7. Conclusão**  
-O projeto cumpre os requisitos propostos, simulando interrupções de forma clara, utilizando **cores**, **timers** e **organização modular**. A documentação detalha cada componente, facilitando o entendimento e a apresentação.
+## **7. Conclusão**
+
+Este projeto tem como objetivo simular o gerenciamento de interrupções em um sistema operacional, com a implementação de prioridades e um timer. A modularização do código e o uso de logs detalhados permitem uma compreensão clara do fluxo de execução e tratativas realizadas durante a simulação.
+
+Este simulador pode ser útil para fins educacionais e para entender como sistemas operacionais lidam com interrupções de maneira eficaz e eficiente.
+
+---
+
+**Link para o Repositório**: [SysInt-Manager no GitHub](https://github.com/sh1ftx/SysInt-Manager)
